@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-book",
-        element: <AddBooks />,
+        element: <AddBook />,
       },
       {
         path: "/update/:id",
