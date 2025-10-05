@@ -22,7 +22,7 @@ const deleteBook = async (id) => {
   return await api.delete(`${API_URL}/${id}`);
 };
 
-const ActivityService = {
+const BookService = {
   getAllBooks,
   deleteBook,
   createBook,
@@ -30,4 +30,4 @@ const ActivityService = {
   getBookById,
 };
 
-export default ActivityService;
+export default BookService;
