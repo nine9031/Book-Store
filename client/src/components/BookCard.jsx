@@ -30,7 +30,7 @@ const BookCard = ({ book }) => {
         <p className="text-gray-700 text-base mb-2">{book.author}</p>
         <button
           className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
-          onClick={() => handleDelete(book.id)}
+          onClick={() => handleDelete(book._id)}
         >
           Delete
         </button>
