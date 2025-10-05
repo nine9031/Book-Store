@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
-
-import MainLayout from "../layouts/MainLayout.jsx";
+import MainLayout from "../Layouts/MainLayout.jsx";
+import Books from "../pages/Books.jsx";
 import Home from "../pages/Home.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import AddBooks from "../pages/AddBooks.jsx";
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/comics",
-        element: <Comics />,
+        path: "/Books",
+        element: <Books />,
       },
       {
         path: "/add-book",
