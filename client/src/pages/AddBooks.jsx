@@ -26,34 +26,41 @@ const AddBooks = () => {
     setBookData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
-    try {
-      const newBook = await BooksService.createBook(bookData);
+const handleSubmit = async () => {
+  try {
+    const payload = {
+      ...bookData,
+      publishYear: Number(bookData.publishYear),
+      pageCount: Number(bookData.pageCount),
+    };
 
+    const newBook = await BooksService.createBook(payload);
+    
       if (newBook.status === 201) {
-        Swal.fire({
-          title: "Register",
-          text: newBook.data.message,
-          icon: "success",
-        }).then(() => {
-          setBookData({
-            title: "",
-            author: "",
-            category: "",
-            publishYear: "",
-            isbn: "",
-            publisher: "",
-            edition: "",
-            pageCount: "",
-            language: "",
-            genre: "",
-            description: "",
-            coverImage: "",
-            location: "",
-          });
-          navigate("/");
-        });
-      }
+  Swal.fire({
+    title: "Add Book",
+    text: "Book created successfully!",
+    icon: "success",
+  }).then(() => {
+    setBookData({
+      title: "",
+      author: "",
+      category: "",
+      publishYear: "",
+      isbn: "",
+      publisher: "",
+      edition: "",
+      pageCount: "",
+      language: "",
+      genre: "",
+      description: "",
+      coverImage: "",
+      location: "",
+    });
+    navigate("/books");
+  });
+}
+
     } catch (error) {
       Swal.fire({
         title: "Register",
