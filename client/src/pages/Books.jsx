@@ -9,7 +9,7 @@ const Books = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await BookService.getAllBook();
+        const response = await BookService.getAllBooks();
 
         if (response.status === 200) {
           setBooks(response.data);
