@@ -45,30 +45,47 @@ const AddBook = () => {
   };
 
   const handleSubmit = async (e) => {
-    e?.preventDefault();
+  e?.preventDefault();
 
-    try {
-      const newBook = await BookService.createBook(book);
+  const formattedBook = {
+    title: book.title.trim(),
+    author: book.author.trim(),
+    category: book.category.trim(),
+    publishYear: book.publishYear ? Number(book.publishYear) : null,
+    isbn: book.isbn.trim(),
+    publisher: book.publisher.trim(),
+    edition: book.edition.trim(),
+    pageCount: book.pageCount ? Number(book.pageCount) : null,
+    language: book.language.trim(),
+    genre: book.genre.trim(),
+    description: book.description.trim(),
+    coverImage: book.coverImage.trim(),
+    location: book.location.trim() || "A1-B2-C3",
+  };
 
-      if (newBook.status === 201 || newBook.status === 200) {
-        await Swal.fire({
-          title: "Add new book",
-          text: "Add new book successfully!",
-          icon: "success",
-        });
-        resetForm();
-        navigate("/");
-      } 
-      
-    } catch (error) {
+  try {
+    const newBook = await BookService.createBook(formattedBook);
+
+    if (newBook.status === 201 || newBook.status === 200) {
       await Swal.fire({
         title: "Add new book",
-        text:  error.message || "Request failed",
-        icon: "error",
+        text: "Add new book successfully!",
+        icon: "success",
       });
-      console.error("Create book error:", error);
+      resetForm();
+      navigate(`/books/${newBook.id}`);
+
     }
-  };
+  } catch (error) {
+    console.error("Create book error:", error);
+    await Swal.fire({
+      title: "Add new book",
+      text: error?.response?.data?.message || error.message || "Request failed",
+      icon: "error",
+    });
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-base-200">

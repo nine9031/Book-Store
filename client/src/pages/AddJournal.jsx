@@ -39,30 +39,50 @@ const AddJournal = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e?.preventDefault();
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const newJournal = await JournalService.createJournal(journal);
+  try {
+    const res = await JournalService.getAllJournals();
+    console.log("✅ getAllJournals response:", res.data);
 
-      if (newJournal.status === 201 || newJournal.status === 200) {
-        await Swal.fire({
-          title: "Add new journal",
-          text: "Add new journal successfully!",
-          icon: "success",
-        });
-        resetForm();
-        navigate("/journals");
-      }
-    } catch (error) {
+    const journalList =
+      Array.isArray(res.data)
+        ? res.data
+        : res.data?.data || res.data?.journals || [];
+
+    const duplicate = journalList.find((j) => j.issn === journal.issn);
+
+    if (duplicate) {
+      await Swal.fire({
+        title: "Duplicate ISSN",
+        text: "A journal with this ISSN already exists.",
+        icon: "warning",
+      });
+      return;
+    }
+
+    const newJournal = await JournalService.createJournal(journal);
+    if (newJournal.status === 201 || newJournal.status === 200) {
       await Swal.fire({
         title: "Add new journal",
-        text: error?.response?.data?.message || error.message || "Request failed",
-        icon: "error",
+        text: "Add new journal successfully!",
+        icon: "success",
       });
-      console.error("Create journal error:", error);
+      resetForm();
+      navigate("/journals");
     }
-  };
+  } catch (error) {
+    console.error("❌ Error adding journal:", error);
+    await Swal.fire({
+      title: "Add new journal",
+      text: error?.response?.data?.message || error.message,
+      icon: "error",
+    });
+  }
+};
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-base-200">

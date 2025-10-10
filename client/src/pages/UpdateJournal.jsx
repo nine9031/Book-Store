@@ -45,7 +45,7 @@ const UpdateJournal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedJournal = await JournalService.editJournalById(id, journal);
+      const updatedJournal = await JournalService.updateJournalByID(id, journal);
       if (updatedJournal.status === 200 || updatedJournal.status === 201) {
         await Swal.fire({
           title: "Success!",

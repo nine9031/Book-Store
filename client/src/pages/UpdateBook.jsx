@@ -46,7 +46,7 @@ const UpdateBook = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedBook = await BookService.editBookById(id, book);
+      const updatedBook = await BookService.updateBookByID(id, book);
       if (updatedBook.status === 200 || updatedBook.status === 201) {
         await Swal.fire({
           title: "Success!",

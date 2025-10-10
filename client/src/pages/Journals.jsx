@@ -8,9 +8,9 @@ const Journals = () => {
   const [journal, setJournal] = useState([]);
 
   useEffect(() => {
-    const getAllJournal = async () => {
+    const getAllJournals = async () => {
       try {
-        const response = await JournalService.getAllJournal();
+        const response = await JournalService.getAllJournals();
 
         if (response.status === 200) {
           setJournal(response.data.data);
@@ -24,7 +24,7 @@ const Journals = () => {
       }
     };
 
-    getAllJournal();
+    getAllJournals();
   }, []);
 
   return (

@@ -2,7 +2,7 @@ import api from "./api.js";
 const JOURNAL_API = import.meta.env.VITE_JOURNALS_API;
 
 //GetAllJournal
-const getAllJournal = async () => {
+const getAllJournals = async () => {
   return await api.get(JOURNAL_API);
 };
 
@@ -25,7 +25,7 @@ const deleteJournal = async (id) => {
 };
 
 const JournalService = {
-  getAllJournal,
+  getAllJournals,
   getJournalByID,
   updateJournalByID,
   createJournal,

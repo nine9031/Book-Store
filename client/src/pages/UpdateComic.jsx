@@ -46,7 +46,7 @@ const UpdateComic = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedComic = await ComicService.editComicById(id, comic);
+      const updatedComic = await ComicService.updateComicByID(id, comic);
       if (updatedComic.status === 200 || updatedComic.status === 201) {
         await Swal.fire({
           title: "Success!",

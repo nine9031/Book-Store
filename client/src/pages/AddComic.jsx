@@ -42,29 +42,45 @@ const AddComic = () => {
   };
 
   const handleSubmit = async (e) => {
-    e?.preventDefault();
+  e.preventDefault();
 
-    try {
-      const newComic = await ComicService.createComic(comic);
+  try {
+    const payload = {
+      ...comic,
+      publishYear: parseInt(comic.publishYear) || 2025,
+      volumeNumber: parseInt(comic.volumeNumber) || 1,
+      illustrator: comic.illustrator || comic.author,
+      colorType: comic.colorType || "BLACK_WHITE",
+      targetAge: comic.targetAge || "TEEN",
+      coverImage: "https://example.com/default-cover.jpg",
+      status: "AVAILABLE",
+      location: "A1-B2-C3",
+      itemType: "Comic",
+    };
 
-      if (newComic.status === 201 || newComic.status === 200) {
-        await Swal.fire({
-          title: "Add new comic",
-          text: "Add new comic successfully!",
-          icon: "success",
-        });
-        resetForm();
-        navigate("/comics");
-      }
-    } catch (error) {
+    console.log("📦 Payload Sent:", payload);
+
+    const newComic = await ComicService.createComic(payload);
+
+    if (newComic.status === 201 || newComic.status === 200) {
       await Swal.fire({
         title: "Add new comic",
-        text: error?.response?.data?.message || error.message || "Request failed",
-        icon: "error",
+        text: "Add new comic successfully!",
+        icon: "success",
       });
-      console.error("Create comic error:", error);
+      resetForm();
+      navigate("/comics");
     }
-  };
+  } catch (error) {
+    console.error("Create comic error:", error.response?.data || error.message);
+    await Swal.fire({
+      title: "Add new comic",
+      text: error?.response?.data?.message || error.message || "Request failed",
+      icon: "error",
+    });
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-base-200">
@@ -121,17 +137,10 @@ const AddComic = () => {
 
               {/* Buttons */}
               <div className="md:col-span-2 flex justify-center gap-4 mt-6">
-                <button
-                  type="button"
-                  className="btn btn-outline"
-                  onClick={resetForm}
-                >
+                <button type="button" className="btn btn-outline" onClick={resetForm}>
                   Reset
                 </button>
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                >
+                <button type="submit" className="btn btn-primary">
                   Add Comic
                 </button>
               </div>
