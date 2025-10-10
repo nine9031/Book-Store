@@ -8,6 +8,7 @@ import UpdateComic from "../pages/UpdateComic";
 import Books from "../pages/Books";
 import Journal from "../pages/Journals";
 import Comic from "../pages/Comics";
+
 const router = createBrowserRouter([
   {
     path: "/",
