@@ -48,7 +48,7 @@ const NavBar = () => {
             </ul>
           </div>
           <a className="btn btn-ghost text-xl" href="/">
-            ร้านหนังสือดีดี๊
+            BookStore
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
