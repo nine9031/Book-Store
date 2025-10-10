@@ -1,10 +1,18 @@
 import BookCard from "./BookCard";
 
 const BooksShow = ({ books }) => {
+    if (!Array.isArray(books) || books.length === 0) {
+        return (
+            <div className="flex justify-center items-center h-64 text-gray-500">
+                ไม่พบข้อมูลหนังสือ
+            </div>
+        );
+    }
+
     return (
         <div className="flex">
             <div className="flex flex-wrap justify-center gap-4">
-                    {books.map((book) => (
+                {books.map((book) => (
                     <BookCard
                         key={book.id}
                         title={book.title}
@@ -24,11 +32,9 @@ const BooksShow = ({ books }) => {
                         pageCount={book.pageCount}
                         language={book.language}
                         genre={book.genre}
-                        
                     />
-                    ))}
+                ))}
             </div>
         </div>
     );
 };
-export default BooksShow;
