@@ -1,46 +1,46 @@
 import React, { useState, useEffect } from "react";
-import BooksShow from "../components/BooksShow";
 import Swal from "sweetalert2";
-import BookService from "../services/book.service";
-import { FiPlus } from "react-icons/fi";
+import JournalsShow from "../components/JournalsShow";
+import JournalService from "../services/journal.service";
+import { FiPlus } from "react-icons/fi"; // ต้องติดตั้ง react-icons ก่อน
 
-const Book = () => {
-  const [book, setBook] = useState([]);
+const Journals = () => {
+  const [journal, setJournal] = useState([]);
 
   useEffect(() => {
-    const getAllBook = async () => {
+    const getAllJournal = async () => {
       try {
-        const response = await BookService.getAllBooks();
+        const response = await JournalService.getAllJournal();
 
         if (response.status === 200) {
-          setBook(response.data.data);
+          setJournal(response.data.data);
         }
       } catch (error) {
         Swal.fire({
-          title: "Get All Book",
+          title: "Get All Journal",
           icon: "error",
           text: error?.response?.data?.message || error.message,
         });
       }
     };
 
-    getAllBook();
+    getAllJournal();
   }, []);
 
   return (
     <div className="container mx-auto">
       <div className="flex justify-end my-6">
         <a
-          href="/AddBook"
+          href="/AddJournal"
           className="btn btn-primary flex items-center justify-center w-12 h-12 rounded-full text-white text-2xl"
         >
           <FiPlus />
         </a>
       </div>
 
-      <BooksShow books={book} />
+      <JournalsShow journal={journal} />
     </div>
   );
 };
 
-export default Book;
+export default Journals;

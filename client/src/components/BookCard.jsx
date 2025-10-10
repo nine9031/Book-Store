@@ -1,39 +1,53 @@
-import { useEffect } from "react";
-import Swal from "sweetalert2";
+import React from "react";
 import BookService from "../services/book.service";
+import { useNavigate } from "react-router";
 
-const BookCard = ({ book }) => {
-  useEffect(() => {}, []);
 
+const BookCard = (props) => {
+    const navigate = useNavigate();
   const handleDelete = async (itemId) => {
-    console.log("Deleting id:", itemId);
+    const isSubmitted = window.confirm(
+      "Please Confirm To Delete Your Book!"
+    );
+    if (!isSubmitted) return;
+
     try {
-      const response = await BookService.deleteBook(itemId);
+      const response = await BookService.deleteBook(itemId)
       if (response.status === 200) {
-        Swal.fire({
-          title: "Deleted Book",
-          text: "Book deleted successfully!",
-          icon: "success",
-        }).then(() => {
-          window.location.reload();
-        });
+        alert("Book deleted successfully!");
+        window.location.reload();
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg p-4 bg-white">
-      <div className="px-4 py-2">
-        <h2 className="font-bold text-xl mb-2">{book.title}</h2>
-        <p className="text-gray-700 text-base mb-2">{book.author}</p>
-        <button
-          className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded"
-          onClick={() => handleDelete(book._id)}
-        >
-          Delete
-        </button>
+    <div className="card bg-base-100 w-96 shadow-sm">
+      <figure>
+        <img src={props.coverImage} alt={props.itemType} />
+      </figure>
+           <div className="card-body">
+        <h2 className="card-title">{props.title}</h2>
+          <p><strong>ชื่อผู้เขียน :</strong> {props.author} </p>
+          <p> <strong>หมวดหมู่ :</strong> {props.category} </p>
+          <p><strong>ปีที่เขียน :</strong> {props.publishYear} </p>
+          <p><strong>ภาษา :</strong> {props.language}</p>
+          <div className="card-actions justify-end">
+            <button
+              onClick={() => handleDelete(props.itemId)}
+              className="btn btn-soft btn-error"
+            >
+              ลบ
+            </button>
+            <a
+              href={"/updateBook/" + props.itemId}
+              className="btn btn-soft btn-warning"
+            >
+              แก้ไข
+            </a>
+          </div>
+        
       </div>
     </div>
   );

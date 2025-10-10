@@ -1,13 +1,7 @@
-import { RouterProvider } from "react-router";
 import "./App.css";
-import router from "./routers";
-
+import NavBar from "./components/Navbar";
 function App() {
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <NavBar />;
 }
 
 export default App;

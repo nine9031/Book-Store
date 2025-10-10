@@ -1,33 +1,33 @@
-import api from "./api";
+import api from "./api.js";
+const BOOKS_API = import.meta.env.VITE_BOOKS_API;
 
-const API_URL = import.meta.env.VITE_BOOKS_API;
-
-const createBook = async (data) => {
-  return await api.post(`${API_URL}/`, data);
-};
-
+//GetAllBooks 
 const getAllBooks = async () => {
-  return await api.get(`${API_URL}/`);
+  return await api.get(BOOKS_API);
 };
-
-const updateBook = async (id, book) => {
-  return await api.put(`${API_URL}/${id}`, book);
+//GetBookByID
+const getBookByID = async (id) => {
+  return await api.get(`${BOOKS_API}/${id}`);
 };
-
-const getBookById = async (id) => {
-  return await api.get(`${API_URL}/${id}`);
+//UpdateByID
+const updateBookByID = async (id, book) => {
+  return await api.put(`${BOOKS_API}/${id}`, book);
 };
-
+//CreateBooks
+const createBook = async (book) => {
+  return await api.post(`${BOOKS_API}`, book);
+};
+//DeleteBooks 
 const deleteBook = async (id) => {
-  return await api.delete(`${API_URL}/${id}`);
+  return await api.delete(`${BOOKS_API}/${id}`);
 };
 
 const BookService = {
   getAllBooks,
-  deleteBook,
+  getBookByID,
+  updateBookByID,
   createBook,
-  updateBook,
-  getBookById,
+  deleteBook,
 };
 
 export default BookService;
