@@ -9,7 +9,7 @@ import Books from "../pages/Books";
 import Journal from "../pages/Journals";
 import Comic from "../pages/Comics";
 
-const router = createBrowserRouter([
+const Router = createBrowserRouter([
   {
     path: "/",
     element: <Books />,
@@ -48,4 +48,4 @@ const router = createBrowserRouter([
     element: <AddJournal/>,
   },
 ]);
-export default router;
+export default Router;
