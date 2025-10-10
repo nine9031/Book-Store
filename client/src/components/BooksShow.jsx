@@ -38,3 +38,5 @@ const BooksShow = ({ books }) => {
         </div>
     );
 };
+
+export default BooksShow;   
