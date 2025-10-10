@@ -1,10 +1,18 @@
 import ComicCard from "./ComicCard";
 
 const ComicsShow = ({ comics }) => {
+    if (!Array.isArray(comics) || comics.length === 0) {
+        return (
+            <div className="flex justify-center items-center h-64 text-gray-500">
+                ไม่พบข้อมูลการ์ตูน
+            </div>
+        );
+    }
+
     return (
         <div className="flex">
             <div className="flex flex-wrap justify-center gap-4">
-                    {comics.map((comic) => (
+                {comics.map((comic) => (
                     <ComicCard
                         key={comic.id}
                         title={comic.title}
@@ -30,7 +38,7 @@ const ComicsShow = ({ comics }) => {
                         colorType={comic.colorType}
                         targetAge={comic.targetAge}
                     />
-                    ))}
+                ))}
             </div>
         </div>
     );

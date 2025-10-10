@@ -1,13 +1,18 @@
 import JournalCard from "./JournalCard";
 
 const JournalsShow = ({ journal }) => {
+    if (!Array.isArray(journal) || journal.length === 0) {
+        return (
+            <div className="flex justify-center items-center h-64 text-gray-500">
+                ไม่พบข้อมูลวารสาร
+            </div>
+        );
+    }
+
     return (
         <div className="flex">
             <div className="flex flex-wrap justify-center gap-4">
-
-
-                
-                    {journal.map((journal) => (
+                {journal.map((journal) => (
                     <JournalCard
                         key={journal.id}
                         title={journal.title}
@@ -27,10 +32,7 @@ const JournalsShow = ({ journal }) => {
                         language={journal.language}
                         genre={journal.genre}
                     />
-                    ))}
-                
-
-
+                ))}
             </div>
         </div>
     );
